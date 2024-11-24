@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Card Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #d9a7c7, #fffcdc);
+    }
+
+    .container {
+      position: relative;
+      width: 400px;
+      height: 500px;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .player-photo {
+  background-size: cover; /* Maintain aspect ratio */
+}
+.team-logo {
+  background-size: cover; /* Maintain aspect ratio */
+}
+
+    .upper-section {
+      flex: 60%;
+      display: flex;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .player-photo {
+      flex: 0.7;
+      background: url('Mitchell Starc.jpg') center center / cover no-repeat, #f4f4f4;
+      border-right: 3px solid #ccc;
+    }
+
+    .details {
+      flex: 0.5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      color: #ffffff;
+    }
+
+    .team-logo {
+      width: 80px;
+      height: 80px;
+      background: url('teams/default.jpg') center center / cover no-repeat;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .player-price {
+      font-size: 1.8em;
+      font-weight: 900;
+      text-align: center;
+      background: #00000080;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    .lower-section {
+      flex: 40%;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .player-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5em;
+      font-weight: 600;
+      text-align: center;
+      color: #333333;
+      margin-bottom: 10px;
+    }
+
+    .channel-logo {
+      top: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      background: url('logo.jpg') center center / contain no-repeat;
+    }
+
+    .player-team {
+      font-size: 1.0em;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      color: #333333;
+    }
+
+    .sell-status {
+      font-size: 1em;
+      font-weight: 700;
+      color: #ffffff;
+      background: #ff4757;
+      padding: 5px 15px;
+      border-radius: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    .mydetails {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .mydetails input,
+    .mydetails select,
+    .mydetails button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 1em;
+    }
+
+    .download-btn {
+      margin-top: 20px;
+      padding: 15px 25px;
+      font-size: 1em;
+      color: white;
+      background-color: #3498db;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #2e86c1;
+    }
+
+    .output-section textarea {
+      width: 90%;
+      padding: 15px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    .screenshot-btn {
+  margin-top: 20px;
+  padding: 15px 25px;
+  font-size: 1em;
+  color: white;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.screenshot-btn:hover {
+  background-color: #2e86c1;
+}
+
+  </style>
+</head>
+<body>
+  <!-- <button class="download-btn" onclick="downloadImage()">Download</button> -->
+  <div class="mydetails">
+    <input id="pname" type="text" placeholder="Player Name">
+    <select id="tname">
+      <option value="Chennai Super Kings">Chennai Super Kings</option>
+      <option value="Mumbai Indians">Mumbai Indians</option>
+      <option value="Royal Challengers Bengaluru">Royal Challengers Bangaluru</option>
+      <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+      <option value="Delhi Capitals">Delhi Capitals</option>
+      <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+      <option value="Rajasthan Royals">Rajasthan Royals</option>
+      <option value="Punjab Kings">Punjab Kings</option>
+      <option value="Lucknow Super Giants">Lucknow Super Giants</option>
+      <option value="Gujarat Titans">Gujarat Titans</option>
+    </select>
+    <input id="money" type="number" placeholder="Price (₹)">
+    <select id="sell-status">
+      <option value="Sold">Sold</option>
+      <option value="Retained">Retained</option>
+    </select>
+    <button onclick="fillDetails()">Update</button>
+  </div>
+  
+
+  <div class="container" id="player-container">
+    <div class="upper-section">
+      <div class="player-photo"></div>
+      <div class="details">
+        <div class="team-logo"></div>
+        <div class="player-price">₹12 Crores</div>
+      </div>
+    </div>
+    <div class="lower-section">
+      <div class="player-name">MS Dhoni</div>
+      <div class="sell-status">Sold</div>
+      <div class="player-team">Chennai Super Kings</div>
+      <div class="channel-logo"></div>
+    </div>
+  </div>
+
+  <button class="download-btn" onclick="downloadImage()">Download</button>
+  <!-- <button class="screenshot-btn" onclick="takeScreenshot()">Take Screenshot</button> -->
+
+  <!-- <div class="output-section">
+    <textarea id="output-message" rows="4" readonly></textarea>
+  </div> -->
+
+
+  <script>
+    function fillDetails() {
+      const playerName = document.getElementById("pname").value || "MS Dhoni";
+      const teamName = document.getElementById("tname").value || "Chennai Super Kings";
+      const playerPrice = document.getElementById("money").value || "12";
+      const sellStatus = document.getElementById("sell-status").value;
+
+      document.querySelector(".player-name").textContent = playerName;
+      document.querySelector(".player-team").textContent = teamName;
+      document.querySelector(".player-price").textContent = `₹${playerPrice} Crores`;
+      document.querySelector(".sell-status").textContent = sellStatus;
+      
+      document.querySelector(".team-logo").style.backgroundImage = `url('teams/${teamName}.jpg'), url('teams/default.jpg')`;
+      document.querySelector(".player-photo").style.backgroundImage = `url('players/${playerName}.jpg')` , `url('players/${playerName}.jpeg')`;
+    
+      const message = `${playerName} is ${sellStatus.toLowerCase()} by ${teamName} with the price of ₹${playerPrice} Crores.\n#${playerName.replace(
+        /\s+/g,
+        ""
+      )}\n#ipl\n#iplauction\n#iplauction2025\n#ipl2025\n#playertoteam`;
+
+      document.getElementById("output-message").value = message;
+    
+
+    
+    }
+
+//     function takeScreenshot() {
+//   const container = document.getElementById("player-container");
+
+//   html2canvas(container, {
+//     scale: 3, // High-resolution scale
+//     useCORS: true, // Handle cross-origin images
+//   })
+//     .then((canvas) => {
+//       canvas.toBlob((blob) => {
+//         const link = document.createElement("a");
+//         link.download = "player-card.jpg"; // Save as a high-quality JPEG
+//         link.href = URL.createObjectURL(blob);
+//         link.click();
+//         URL.revokeObjectURL(link.href); // Clean up
+//       }, "image/jpeg", 1.0); // Maximum quality
+//     })
+//     .catch((err) => {
+//       console.error("Error taking screenshot:", err);
+//     });
+// }
+
+
+    // function downloadImage() {
+    //   const container = document.getElementById("player-container");
+    //   html2canvas(container).then((canvas) => {
+    //     const link = document.createElement("a");
+    //     link.download = "player-card.png";
+    //     link.href = canvas.toDataURL("image/png");
+    //     link.click();
+    //   }).catch(err => {
+    //     console.error("Error generating image:", err);
+    //   }); }
+
+//     function downloadImage() {
+//   const container = document.getElementById("player-container");
+//   html2canvas(container, {
+//     scale: 5, // Adjust scale for higher resolution (default is 1)
+//     useCORS: true, // Ensures proper handling of cross-origin images
+//     allowTaint: false,
+//   })
+//     .then((canvas) => {
+//       const link = document.createElement("a");
+//       link.download = "player-card.png";
+//       link.href = canvas.toDataURL("image/png", 1.0); // Set quality to maximum
+//       link.click();
+//     })
+//     .catch((err) => {
+//       console.error("Error generating high-quality image:", err);
+//     });
+// }
+// function downloadImage() {
+//   const container = document.getElementById("player-container");
+  
+//   // Increase the scale for higher quality
+//   html2canvas(container, {
+//     scale: 5, // Higher scale for better quality
+//     useCORS: true, // Handles cross-origin images
+//     allowTaint: false, // Ensures no untrusted content issues
+//   })
+//     .then((canvas) => {
+//       const link = document.createElement("a");
+
+//       // Convert canvas to JPEG with high quality
+//       link.download = "player-card.jpg";
+//       link.href = canvas.toDataURL("image/jpeg", 1.0); // Maximum quality for JPEG
+//       link.click();
+//     })
+//     .catch((err) => {
+//       console.error("Error generating high-quality image:", err);
+//     });
+// }
+
+
+
+// function downloadImage() {
+//   const container = document.getElementById("player-container");
+
+//   html2canvas(container, {
+//     scale: 3, // Increase the scale for higher resolution
+//     useCORS: true, // Allow cross-origin images to be loaded
+//   })
+//     .then((canvas) => {
+//       // Convert the canvas to a Blob (higher quality than DataURL)
+//       canvas.toBlob((blob) => {
+//         const link = document.createElement("a");
+//         link.download = "player-card.jpg"; // Save as a high-quality JPEG file
+//         link.href = URL.createObjectURL(blob);
+//         link.click();
+//         URL.revokeObjectURL(link.href); // Free up memory
+//       }, "image/jpeg", 1.0); // Maximum quality
+//     })
+//     .catch((err) => {
+//       console.error("Error generating high-quality image:", err);
+//     });
+// }
+
+  </script>
+</body>
+</html>
