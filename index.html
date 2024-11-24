@@ -279,16 +279,16 @@
 // }
 
 
-    // function downloadImage() {
-    //   const container = document.getElementById("player-container");
-    //   html2canvas(container).then((canvas) => {
-    //     const link = document.createElement("a");
-    //     link.download = "player-card.png";
-    //     link.href = canvas.toDataURL("image/png");
-    //     link.click();
-    //   }).catch(err => {
-    //     console.error("Error generating image:", err);
-    //   }); }
+    function downloadImage() {
+      const container = document.getElementById("player-container");
+      html2canvas(container).then((canvas) => {
+        const link = document.createElement("a");
+        link.download = "player-card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(err => {
+        console.error("Error generating image:", err);
+      }); }
 
 //     function downloadImage() {
 //   const container = document.getElementById("player-container");
